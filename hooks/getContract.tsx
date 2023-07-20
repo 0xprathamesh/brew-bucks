@@ -3,27 +3,30 @@ import { contractAbi, contractAddress } from "@/constants";
 import { Profile } from "@/recoil/state";
 
 const getContract = () => {
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const signer = provider.getSigner();
-  let contract = new ethers.Contract(contractAddress, contractAbi, signer);
-  // let provider: ethers.providers.Web3Provider | undefined;
-  // let signer: ethers.providers.JsonRpcSigner | undefined;
-  // let contract: ethers.Contract | undefined;
+  // const provider = new ethers.providers.Web3Provider(window.ethereum);
+  // const signer = provider.getSigner();
+  // let contract = new ethers.Contract(contractAddress, contractAbi, signer);
+  let provider;
+  let signer;
+  let contract: any;
 
-  // if (typeof window !== "undefined" && "ethereum" in window) {
-  //   provider = new ethers.providers.Web3Provider(window.ethereum);
-  //   signer = provider.getSigner();
-  //   contract = new ethers.Contract(contractAddress, contractAbi, signer);
-  // } else {
-  //   console.error("Web3 provider not available. Make sure you are using a Web3-enabled browser.");
-  // }
+  if (typeof window !== "undefined" && "ethereum" in window) {
+    provider = new ethers.providers.Web3Provider(window.ethereum);
+    provider.send("eth_requestAccounts", []);
+    signer = provider.getSigner();
+    contract = new ethers.Contract(contractAddress, contractAbi, signer);
+  } else {
+    provider = new ethers.providers.JsonRpcProvider();
+    signer = provider.getSigner();
+    contract = new ethers.Contract(contractAddress, contractAbi, signer);
+  }
 
   const addProfile = async (
     name: string,
     username: string | string[],
     bio: string,
     twitterHandle: string,
-    profileImage: string
+    profileImage: string | undefined
   ): Promise<void> => {
     try {
       const tx = await contract.addProfile(
@@ -78,5 +81,6 @@ const getContract = () => {
       throw err;
     }
   }
+  return {addProfile,getProfileByAddress,getProfileByUsername}
 };
 export default getContract

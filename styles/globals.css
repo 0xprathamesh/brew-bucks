@@ -1,27 +1,35 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+.dark-blue {
+  color: #0072f5;
+}
+.sidebar-active {
+  background: #cee4fe;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+@layer base {
+  body {
+    @apply min-h-screen w-full bg-[#ffffff] text-black font-body;
   }
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  button {
+    @apply rounded-lg active:scale-95  text-white  font-medium px-3 py-1 duration-200 ease-out flex items-center gap-1;
+  }
+  label {
+    @apply text-gray-700 mb-1;
+  }
+  input[type="text"],
+  input[type="number"],
+  textarea {
+    @apply px-3 py-2 rounded-xl ring-1  ring-opacity-75  ring-slate-500 bg-opacity-50   hover:ring-gray-500 hover:shadow-md  focus-visible:shadow-xl focus-visible:outline-none transition duration-300 ease-out active:scale-[98%] text-sm;
+  }
+  #sub-fee-input::-webkit-outer-spin-button,
+  #sub-fee-input::-webkit-inner-spin-button {
+    display: none;
+  }
+  #sub-fee-input {
+    @apply pl-8;
+  }
 }
