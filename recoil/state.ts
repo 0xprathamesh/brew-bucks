@@ -7,8 +7,6 @@ export type Profile = {
     bio: string;
     twitterHandle: string;
     profileImage: string;
-    followers: string[];
-    follows: string[];
     balance: number;
     createdAt: number;
     walletAddress: string;

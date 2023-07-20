@@ -11,7 +11,7 @@ const chains = [polygonMumbai];
 const config = createConfig(
   getDefaultConfig({
     // Required API Keys
-    alchemyId: "2yLPbaXyrARDaJPk4lOe-f8D4ceX-j1P", // or infuraId
+    alchemyId: "C1vZFHP_lrxdnHutKBmmkeNVDeiOZR71", // or infuraId
     walletConnectProjectId: "a0c93d8a0ad928d0ca69ad15058d48a3",
     chains,
     // Required
