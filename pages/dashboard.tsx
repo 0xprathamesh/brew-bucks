@@ -9,7 +9,9 @@ import { useAccount, useWalletClient } from "wagmi";
 import { Profile } from "@/recoil/state";
 import { useRouter } from "next/router";
 import Link from "next/link";
-
+import Image from "next/image";
+import Avatar from "@/components/profile/Avatar";
+import { HiArrowUpTray } from "react-icons/hi2";
 type Props = {
   profileData: Profile;
 };
@@ -19,7 +21,6 @@ const Dashboard = ({ profileData }: Props) => {
   const { data: walletClient } = useWalletClient();
   const { address, isDisconnected } = useAccount();
   const router = useRouter();
-
   return (
     <Layout>
       {!currentUser.loading && !currentUser.hasProfile && (
@@ -34,7 +35,27 @@ const Dashboard = ({ profileData }: Props) => {
       )}
       {currentUser.hasProfile && (
         <div className="flex justify-between items-center bg-[#f1f1f1] w-full h-40 px-6">
-          {/* Your content here */}
+          <div className="flex">
+            <Avatar
+              src={
+                "https://w3s.link/ipfs/" + currentUser?.profile?.profileImage
+              }
+            />
+            <div className="ml-5 p-3 ">
+              <h4 className="text-2xl font-semibold cursor-pointer">
+                Hi, {currentUser?.profile?.name}
+              </h4>
+              <Link href={`/username`} className="text-sm text-gray-500">
+                <p>
+                  {window.location.host}/{currentUser?.profile?.username}
+                </p>
+              </Link>
+            </div>
+          </div>
+          <div className="bg-[#222222] px-8 text-white py-2 text-md rounded-full flex items-center">
+            <HiArrowUpTray className="h-5 w-5 mr-2" />
+            Share Page
+          </div>
         </div>
       )}
     </Layout>
