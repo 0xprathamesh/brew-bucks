@@ -35,7 +35,7 @@ const Header = ({ showNav, setShowNav }: Props) => {
           } `}
         >
           {!currentUser.loading && !currentUser.hasProfile && (
-            <Link href="/signup" className="hidden md:block">
+            <Link href="/signup" className="hidden md:block w-full">
               <button className="bg-[#0072f5] mr-3">Create Profile</button>
             </Link>
           )}

@@ -9,6 +9,7 @@ import { currentUserState } from "@/recoil/state";
 import { useRouter, NextRouter } from "next/router";
 import { toast } from "react-hot-toast";
 import useWeb3Storage from "@/hooks/useWeb3Storage";
+import Layout from "@/components/layout/Layout";
 
 type Props = {
   web3storageToken: string;
@@ -124,7 +125,7 @@ const Signup = (props: Props) => {
   };
 
   return (
-    <>
+    <Layout>
         <Transition appear show={true}>
           <Dialog
             as="div"
@@ -271,7 +272,7 @@ const Signup = (props: Props) => {
             
           </Dialog>
         </Transition>
-      </>
+      </Layout>
   );
 };
 
