@@ -5,7 +5,7 @@ import { currentUserState } from "@/recoil/state";
 import { useRecoilValue } from "recoil";
 import Loading from "@/components/elements/Loading";
 import getContract from "@/hooks/getContract";
-import { useAccount, useWalletClient } from "wagmi";
+import { useAccount, useContractRead, useWalletClient } from "wagmi";
 import { Profile } from "@/recoil/state";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -14,6 +14,9 @@ import Avatar from "@/components/profile/Avatar";
 import { HiArrowUpTray, HiChevronDown, HiChevronUp } from "react-icons/hi2";
 import { LuAlertTriangle, LuAlertCircle } from "react-icons/lu";
 import { ethers } from "ethers";
+import { contractAbi, contractAddress } from "@/constants";
+import Chart from "@/components/Chart";
+
 type Props = {
   profileData: Profile;
 };
@@ -22,15 +25,24 @@ const list = [
   { time: "Last 1 Year" },
   { time: "All Time" },
 ];
+
 const Dashboard = ({ profileData }: Props) => {
   const [profile, setProfile] = useState<Profile>(profileData);
-  const [isOpen, setIsOpen] = useState(false);
   const currentUser = useRecoilValue(currentUserState);
   const { data: walletClient } = useWalletClient();
   const { address, isDisconnected } = useAccount();
-  console.log(currentUser?.profile?.balance);
 
   const router = useRouter();
+
+  const getTx = useContractRead({
+    address: contractAddress,
+    abi: contractAbi,
+    functionName: "getTx",
+    args: [address],
+    enabled: !!address,
+    watch: true,
+  });
+
   return (
     <Layout>
       {!currentUser.loading && !currentUser.hasProfile && (
@@ -63,13 +75,13 @@ const Dashboard = ({ profileData }: Props) => {
                   Hi, {currentUser?.profile?.name}
                 </h4>
                 <Link href={`/username`} className="text-sm text-gray-500">
-                  <p>
+                  <h1>
                     {window.location.host}/{currentUser?.profile?.username}
-                  </p>
+                  </h1>
                 </Link>
               </div>
             </div>
-            <div className="bg-[#222222] px-8 text-white py-2 text-md rounded-full flex items-center">
+            <div className="bg-[#222222] px-8 text-white py-2 text-md rounded-full flex items-center cursor-pointer">
               <HiArrowUpTray className="h-5 w-5 mr-2" />
               Share Page
             </div>
@@ -81,39 +93,22 @@ const Dashboard = ({ profileData }: Props) => {
               </h4>
               <div className="relative flex flex-col items-center w-[10rem]  rounded-lg ">
                 <button
-                  onClick={() => setIsOpen((prev) => !prev)}
                   className="bg-white text-sm py-2 w-full flex text-[#121212] items-center justify-center rounded-full active:border-black duration-300 border border-gray-400 "
                 >
                   Last 30 days
-                  {!isOpen ? (
-                    <HiChevronDown className="h-4 ml-2 w-4" />
-                  ) : (
-                    <HiChevronUp className="h-4 ml-2 w-4" />
-                  )}
                 </button>
-                {isOpen && (
-                  <div className="absolute top-12 flex flex-col items-start w-full rounded-md bg-white   ">
-                    {list.map((item, i) => (
-                      <div
-                        className="flex w-full justify-between cursor-pointer rounded-r-md text-sm pl-5 m-1 hover:text-gray-400 "
-                        key={i}
-                      >
-                        <h3>{item.time} </h3>
-                      </div>
-                    ))}
-                  </div>
-                )}
               </div>
             </div>
-
             <div className="ml-5 pt-4">
               <h1 className="flex text-5xl items-end">
                 {ethers.utils.formatEther(currentUser?.profile?.balance || 0)}{" "}
                 <span className="text-sm">MATIC</span>
               </h1>
-              <p></p>
             </div>
           </div>
+
+          {/* <Chart transactions ={txns} /> */}
+          <Chart />
         </div>
       )}
     </Layout>

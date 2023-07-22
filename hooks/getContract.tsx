@@ -1,6 +1,7 @@
 import { ethers } from "ethers";
 import { contractAbi, contractAddress } from "@/constants";
 import { Profile } from "@/recoil/state";
+import { useContractRead } from "wagmi";
 
 const getContract = () => {
   // const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -80,7 +81,9 @@ const getContract = () => {
       console.error(err);
       throw err;
     }
-  }
+  };
+
+
   return {addProfile,getProfileByAddress,getProfileByUsername}
 };
 export default getContract

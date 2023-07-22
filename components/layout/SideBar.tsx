@@ -52,11 +52,6 @@ const SideBar = forwardRef<HTMLDivElement, SideBarProps>(
         icon: BiSolidGift,
       },
       {
-        name: "Followers",
-        href: "/followers",
-        icon: HiUser,
-      },
-      {
         name: "Transactions",
         href: "/transactions",
         icon: BiTransfer,
@@ -152,7 +147,7 @@ const SideBar = forwardRef<HTMLDivElement, SideBarProps>(
             {/* Main Menu */}
             <div className="pl-6 py-2 text-[10px] mb-1 mt-3 text-gray-600">
               <p>MAIN MENU</p>
-            </div>
+            </div>  
             {mainItems.map((item) => (
               <Link href={item.href} key={item.href}>
                 <div

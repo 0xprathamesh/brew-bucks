@@ -16,7 +16,7 @@ const Layout = ({ children }: LayoutProps) => {
     const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
     const { data: walletClient } = useWalletClient({
       onSuccess(data) {
-        console.log("Success", data);
+        console.log("Success");
       },
     });
     const contract = getContract();

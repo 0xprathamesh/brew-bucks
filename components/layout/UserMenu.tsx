@@ -17,12 +17,6 @@ const UserMenu = () => {
     disconnect();
     window.location.reload();
   };
-  const parseAddress = () => {
-    if (typeof address === "string") {
-      return address.slice(0, 6) + "..." + address.slice(-5, -1);
-    }
-    return ""; // Return a default value if address is not a string or is undefined
-  };
 
   return (
     <>
