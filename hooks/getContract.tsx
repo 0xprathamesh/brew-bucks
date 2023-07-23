@@ -44,7 +44,9 @@ const getContract = () => {
     }
   };
 
-  const getProfileByUsername = async (username: string | string[]): Promise<Profile> => {
+  const getProfileByUsername = async (
+    username: string | string[]
+  ): Promise<Profile> => {
     try {
       const res = await contract.getProfileByUsername(username);
       return {
@@ -59,9 +61,9 @@ const getContract = () => {
         walletAddress: res.walletAddress,
       };
     } catch (err) {
-      throw err
+      throw err;
     }
-  }
+  };
 
   const getProfileByAddress = async (): Promise<Profile> => {
     try {
@@ -76,14 +78,22 @@ const getContract = () => {
         balance: res.balance,
         createdAt: res.createdAt,
         walletAddress: res.walletAddress,
-      }
+      };
     } catch (err) {
       console.error(err);
       throw err;
     }
   };
 
+  const withdraw = async (userAddress:any) => {
+    try {
+      const tx = await contract.withdraw(userAddress);
+      await tx.wait();
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-  return {addProfile,getProfileByAddress,getProfileByUsername}
+  return { addProfile, getProfileByAddress, getProfileByUsername,withdraw };
 };
-export default getContract
+export default getContract;
