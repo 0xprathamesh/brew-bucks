@@ -47,14 +47,24 @@ const SideBar = forwardRef<HTMLDivElement, SideBarProps>(
         icon: BiHeart,
       },
       {
-        name: "Extras",
-        href: "/extras",
+        name: "Profile NFT",
+        href: "/mintnft",
         icon: BiSolidGift,
       },
       {
         name: "Transactions",
         href: "/transactions",
         icon: BiTransfer,
+      },
+      {
+        name: "Payouts",
+        href: "/payouts",
+        icon: BiSolidWalletAlt,
+      },
+      {
+        name: "Account",
+        href: "/account",
+        icon: BiAt,
       },
     ];
     const settingItem = [
@@ -68,16 +78,7 @@ const SideBar = forwardRef<HTMLDivElement, SideBarProps>(
         href: "/integrations",
         icon: BiSolidBolt,
       },
-      {
-        name: "Payouts",
-        href: "/payouts",
-        icon: BiSolidWalletAlt,
-      },
-      {
-        name: "Account",
-        href: "/account",
-        icon: BiAt,
-      },
+
     ];
     const checkIfUserHasProfile = async () => {
       setCurrentUser({ ...currentUser, loading: true });
@@ -171,7 +172,7 @@ const SideBar = forwardRef<HTMLDivElement, SideBarProps>(
               </Link>
             ))}
             <div className="pl-6 py-2 text-[10px] mb-1 mt-3 text-gray-600">
-              <p>SETTINGS</p>
+              <p>SETTINGS (Coming Soon)</p>
             </div>
             {settingItem.map((item) => (
               <Link href={item.href} key={item.href}>

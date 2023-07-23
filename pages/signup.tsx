@@ -98,8 +98,7 @@ const Signup = (props: Props) => {
     if (!fileTypes.includes(type)) {
       toast.error("File format must be either png or jpg");
       return false;
-    }
-
+    }  
     // Check file size to ensure it is less than 2MB.
     if (size / 1024 / 1024 > 2) {
       toast.error("File size exceeded the limit of 2MB");

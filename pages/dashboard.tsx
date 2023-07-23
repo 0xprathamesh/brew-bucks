@@ -63,7 +63,7 @@ const Dashboard = ({ profileData }: Props) => {
       )}
       {currentUser.hasProfile && (
         <div>
-          <div className="flex justify-between items-center bg-[#f1f1f1] w-full h-40 px-6">
+          <div className="flex justify-between items-center bg-[#f1f1f1] w-full h-40 px-6 shadow-sm">
             <div className="flex">
               <Avatar
                 src={
@@ -86,16 +86,16 @@ const Dashboard = ({ profileData }: Props) => {
               Share Page
             </div>
           </div>
-          <div className="mt-4 bg-[#f1f1f1] w-[25rem] h-40 ">
+          <div className="mt-4 bg-[#f1f1f1] w-[25rem] h-40 shadow-sm ">
             <div className="flex items-center gap-5">
               <h4 className="text-2xl font-semibold text-[#121212] m-5 ">
                 Earnings
               </h4>
               <div className="relative flex flex-col items-center w-[10rem]  rounded-lg ">
                 <button
-                  className="bg-white text-sm py-2 w-full flex text-[#121212] items-center justify-center rounded-full active:border-black duration-300 border border-gray-400 "
+                  className="bg-white text-sm py-2 px-2 ml-6 w-full flex text-[#121212] items-center justify-center rounded-full active:border-black duration-300 border border-gray-400 "
                 >
-                  Last 30 days
+                  Withdrawal Balance
                 </button>
               </div>
             </div>
