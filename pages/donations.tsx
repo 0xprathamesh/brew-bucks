@@ -228,10 +228,10 @@ const Donations = ({ profileData }: Props) => {
                       </p>
                     </div>
                     <p>
-                      <Copyable
-                        text={parseAddress(address)}
-                        copyText={address}
-                      />
+                    <Copyable
+                      text={parseAddress(tx.from)}
+                      copyText={tx.from}
+                    />
                     </p>
                     <p>
                       {new Date(Number(tx.timestamp) * 1000).toLocaleString()}{" "}

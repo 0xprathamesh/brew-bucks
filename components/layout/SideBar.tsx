@@ -63,7 +63,7 @@ const SideBar = forwardRef<HTMLDivElement, SideBarProps>(
       },
       {
         name: "Account",
-        href: "/account",
+        href: "/your-account",
         icon: BiAt,
       },
     ];
