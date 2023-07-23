@@ -1,7 +1,7 @@
 import Layout from "@/components/layout/Layout";
 import { currentUserState } from "@/recoil/state";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRecoilValue } from "recoil";
 import { useAccount, useContractRead } from "wagmi";
 import { Profile } from "@/recoil/state";
@@ -17,6 +17,7 @@ import {
 } from "react-icons/bi";
 import { BsFillPersonFill } from "react-icons/bs";
 import Copyable from "@/components/Copyable";
+import Loading from "@/components/elements/Loading";
 
 type Props = {
   profileData: Profile;
@@ -29,15 +30,18 @@ type Transaction = {
   timestamp: number;
 };
 
-
-
 const Donations = ({ profileData }: Props) => {
   const [profile, setProfile] = useState<Profile>(profileData);
+  const [loading, setLoading] = useState(true);
   const currentUser = useRecoilValue(currentUserState);
   const { address, isDisconnected } = useAccount();
   const router = useRouter();
 
-  const parseAddress = (address:any) => {
+  useEffect(() => {
+    setLoading(false);
+  }, []);
+
+  const parseAddress = (address: any) => {
     return address.slice(0, 6) + "..." + address.slice(-5, -1);
   };
 
@@ -77,8 +81,9 @@ const Donations = ({ profileData }: Props) => {
   });
   const getTxn: any = getTx?.data;
   console.log(getTx?.data);
-  
-  const getFiveTx = getTxn !== null && getTxn !== undefined ? getTxn.slice(-5).reverse() : [];
+
+  const getFiveTx =
+    getTxn !== null && getTxn !== undefined ? getTxn.slice(-5).reverse() : [];
   console.log(getFiveTx);
 
   return (
@@ -218,21 +223,29 @@ const Donations = ({ profileData }: Props) => {
                       <p className="text-gray-800 font-bold ">
                         {ethers.utils.formatEther(tx.amount)}
                       </p>
-                      <p className="text-gray-800 text-[8px] pt-2 ml-2">MATIC</p>
+                      <p className="text-gray-800 text-[8px] pt-2 ml-2">
+                        MATIC
+                      </p>
                     </div>
-                    <p><Copyable text={parseAddress(address)} copyText={address} /></p>
-                    <p>{new Date(Number(tx.timestamp) * 1000).toLocaleString()} </p>
+                    <p>
+                      <Copyable
+                        text={parseAddress(address)}
+                        copyText={address}
+                      />
+                    </p>
+                    <p>
+                      {new Date(Number(tx.timestamp) * 1000).toLocaleString()}{" "}
+                    </p>
                   </li>
                 ))}
             </ul>
           </div>{" "}
           <Link href="/transactions">
-          <button className="bg-[#0072f5] m-5 ">
-            See All Transactions
-          </button>
+            <button className="bg-[#0072f5] m-5 ">See All Transactions</button>
           </Link>
-        </div>  
+        </div>
       )}
+      {loading ? <Loading /> : null}
     </Layout>
   );
 };
