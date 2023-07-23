@@ -196,7 +196,7 @@ const Donations = ({ profileData }: Props) => {
           <p className="text-gray-400 text-center mb-5">Recent Donations</p>
           <div className="grid col-1 bg-[#f1f1f1] h-96 shadow-sm p-4">
             <div className="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 items-center justify-between cursor-pointer">
-              <span className="pl-3">Name</span>
+              <span className="pl-3">From</span>
               <span className="sm:text-left text-right">Amount</span>
               <span className="hidden md:grid">Wallet Address</span>
               <span className="hidden sm:grid">Time</span>
@@ -226,6 +226,11 @@ const Donations = ({ profileData }: Props) => {
                 ))}
             </ul>
           </div>{" "}
+          <Link href="/transactions">
+          <button className="bg-[#0072f5] m-5 ">
+            See All Transactions
+          </button>
+          </Link>
         </div>  
       )}
     </Layout>
