@@ -1,4 +1,5 @@
-const contractAddress = "0x8bBB47a6450b8028bcC28CF83A06617EA6c01C2B";
+const contractAddress = "0x281e32aDcB2B620A00e70D902103865187C1102D";
+//0x8bBB47a6450b8028bcC28CF83A06617EA6c01C2B
 const contractAbi = [
   {
     "type": "event",
@@ -90,6 +91,16 @@ const contractAbi = [
             "type": "address",
             "name": "walletAddress",
             "internalType": "address"
+          },
+          {
+            "type": "uint256",
+            "name": "totalAmountReceived",
+            "internalType": "uint256"
+          },
+          {
+            "type": "uint256",
+            "name": "totalAmountWithdrawn",
+            "internalType": "uint256"
           }
         ],
         "indexed": false,
@@ -154,6 +165,16 @@ const contractAbi = [
         "type": "address",
         "name": "walletAddress",
         "internalType": "address"
+      },
+      {
+        "type": "uint256",
+        "name": "totalAmountReceived",
+        "internalType": "uint256"
+      },
+      {
+        "type": "uint256",
+        "name": "totalAmountWithdrawn",
+        "internalType": "uint256"
       }
     ],
     "stateMutability": "view"
@@ -228,6 +249,11 @@ const contractAbi = [
         "type": "string",
         "name": "_message",
         "internalType": "string"
+      },
+      {
+        "type": "uint256",
+        "name": "_amount",
+        "internalType": "uint256"
       }
     ],
     "outputs": [],
@@ -286,6 +312,16 @@ const contractAbi = [
             "type": "address",
             "name": "walletAddress",
             "internalType": "address"
+          },
+          {
+            "type": "uint256",
+            "name": "totalAmountReceived",
+            "internalType": "uint256"
+          },
+          {
+            "type": "uint256",
+            "name": "totalAmountWithdrawn",
+            "internalType": "uint256"
           }
         ],
         "internalType": "struct BrewBucks.Profile[]"
@@ -365,6 +401,16 @@ const contractAbi = [
             "type": "address",
             "name": "walletAddress",
             "internalType": "address"
+          },
+          {
+            "type": "uint256",
+            "name": "totalAmountReceived",
+            "internalType": "uint256"
+          },
+          {
+            "type": "uint256",
+            "name": "totalAmountWithdrawn",
+            "internalType": "uint256"
           }
         ],
         "internalType": "struct BrewBucks.Profile"
@@ -431,6 +477,16 @@ const contractAbi = [
             "type": "address",
             "name": "walletAddress",
             "internalType": "address"
+          },
+          {
+            "type": "uint256",
+            "name": "totalAmountReceived",
+            "internalType": "uint256"
+          },
+          {
+            "type": "uint256",
+            "name": "totalAmountWithdrawn",
+            "internalType": "uint256"
           }
         ],
         "internalType": "struct BrewBucks.Profile"
@@ -440,11 +496,11 @@ const contractAbi = [
   },
   {
     "type": "function",
-    "name": "getTotalAmountReceived",
+    "name": "getTotalAmountReceivedFromSupporters",
     "inputs": [
       {
         "type": "address",
-        "name": "_to",
+        "name": "_userAddress",
         "internalType": "address"
       }
     ],
@@ -459,24 +515,19 @@ const contractAbi = [
   },
   {
     "type": "function",
-    "name": "getTreatSender",
+    "name": "getTotalAmountWithdrawn",
     "inputs": [
       {
         "type": "address",
-        "name": "_to",
+        "name": "_userAddress",
         "internalType": "address"
-      },
-      {
-        "type": "uint256",
-        "name": "_index",
-        "internalType": "uint256"
       }
     ],
     "outputs": [
       {
-        "type": "address",
+        "type": "uint256",
         "name": "",
-        "internalType": "address"
+        "internalType": "uint256"
       }
     ],
     "stateMutability": "view"
@@ -573,6 +624,58 @@ const contractAbi = [
   },
   {
     "type": "function",
+    "name": "updateBio",
+    "inputs": [
+      {
+        "type": "string",
+        "name": "_newBio",
+        "internalType": "string"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "updateName",
+    "inputs": [
+      {
+        "type": "string",
+        "name": "_newName",
+        "internalType": "string"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "updateProfileImage",
+    "inputs": [
+      {
+        "type": "string",
+        "name": "_newProfileImage",
+        "internalType": "string"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "updateTwitterHandle",
+    "inputs": [
+      {
+        "type": "string",
+        "name": "_newTwitterHandle",
+        "internalType": "string"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
     "name": "usernameTaken",
     "inputs": [
       {
@@ -645,6 +748,16 @@ const contractAbi = [
         "type": "address",
         "name": "walletAddress",
         "internalType": "address"
+      },
+      {
+        "type": "uint256",
+        "name": "totalAmountReceived",
+        "internalType": "uint256"
+      },
+      {
+        "type": "uint256",
+        "name": "totalAmountWithdrawn",
+        "internalType": "uint256"
       }
     ],
     "stateMutability": "view"
@@ -661,6 +774,35 @@ const contractAbi = [
     ],
     "outputs": [],
     "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "withdrawTxns",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "",
+        "internalType": "address"
+      },
+      {
+        "type": "uint256",
+        "name": "",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [
+      {
+        "type": "uint256",
+        "name": "amount",
+        "internalType": "uint256"
+      },
+      {
+        "type": "uint256",
+        "name": "timestamp",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
   }
 ];
 export { contractAddress, contractAbi };

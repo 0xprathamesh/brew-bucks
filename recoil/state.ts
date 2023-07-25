@@ -10,7 +10,8 @@ export type Profile = {
     balance: number;
     createdAt: number;
     walletAddress: string;
-
+    totalAmountReceived: number;
+    totalAmountWithdrawn: number;
 };
 
 type AppUserState = {

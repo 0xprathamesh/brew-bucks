@@ -27,7 +27,7 @@ type Transaction = {
   timestamp: number;
 };
 
-const Payouts = () => {
+const Payouts = (props:Props) => {
   const [loading, setLoading] = useState(true);
   const currentUser = useRecoilValue(currentUserState);
   const { address, isDisconnected } = useAccount();
@@ -39,16 +39,20 @@ const Payouts = () => {
 
   const handleWithdraw = async () => {
     if (!isDisconnected) {
-      try {
-        toast("Transaction in Process..");
-        await withdraw(address);
-        toast.success("Balance Withdrawn Successfully..");
-      } catch (err) {
-        console.log(err)
+      const balance = currentUser?.profile?.balance;
+      if (balance !== undefined && balance > 0) {
+        try {
+          toast("Transaction in Process..");
+          await withdraw(address);
+          toast.success("Balance Withdrawn Successfully..");
+        } catch (err) {
+          console.log(err);
+        }
+      } else {
+        toast.error("No balance to withdraw.");
       }
     }
-  }
-
+  };
   return (
     <Layout>
       {!currentUser.loading && !currentUser.hasProfile && (

@@ -16,7 +16,7 @@ import { LuAlertTriangle, LuAlertCircle } from "react-icons/lu";
 import { ethers } from "ethers";
 import { contractAbi, contractAddress } from "@/constants";
 import Chart from "@/components/Chart";
-
+import confetti from "canvas-confetti";
 type Props = {
   profileData: Profile;
 };
@@ -34,14 +34,18 @@ const Dashboard = ({ profileData }: Props) => {
 
   const router = useRouter();
 
-  const getTx = useContractRead({
-    address: contractAddress,
-    abi: contractAbi,
-    functionName: "getTx",
-    args: [address],
-    enabled: !!address,
-    watch: true,
-  });
+  const handleConfetti = () => {
+    confetti({
+      particleCount: 100,
+      startVelocity: 30,
+      spread: 360,
+      origin: {
+        x: Math.random(),
+        // since they fall down, start a bit higher than random
+        y: Math.random() - 0.2,
+      },
+    });
+  };
 
   return (
     <Layout>
@@ -74,14 +78,17 @@ const Dashboard = ({ profileData }: Props) => {
                 <h4 className="text-2xl font-semibold cursor-pointer">
                   Hi, {currentUser?.profile?.name}
                 </h4>
-                <Link href={`/username`} className="text-sm text-gray-500">
+                <Link href={`/${currentUser?.profile?.username}`} className="text-sm text-gray-500">
                   <h1>
                     {window.location.host}/{currentUser?.profile?.username}
                   </h1>
                 </Link>
               </div>
             </div>
-            <div className="bg-[#222222] px-8 text-white py-2 text-md rounded-full flex items-center cursor-pointer">
+            <div
+              className="bg-[#222222] px-8 text-white py-2 text-md rounded-full flex items-center cursor-pointer"
+              onClick={handleConfetti}
+            >
               <HiArrowUpTray className="h-5 w-5 mr-2" />
               Share Page
             </div>
@@ -92,9 +99,7 @@ const Dashboard = ({ profileData }: Props) => {
                 Earnings
               </h4>
               <div className="relative flex flex-col items-center w-[10rem]  rounded-lg ">
-                <button
-                  className="bg-white text-sm py-2 px-2 ml-6 w-full flex text-[#121212] items-center justify-center rounded-full active:border-black duration-300 border border-gray-400 "
-                >
+                <button className="bg-white text-sm py-2 px-2 ml-6 w-full flex text-[#121212] items-center justify-center rounded-full active:border-black duration-300 border border-gray-400 ">
                   Withdrawal Balance
                 </button>
               </div>

@@ -7,15 +7,17 @@ import { useRecoilValue } from "recoil";
 import { useAccount, useDisconnect } from "wagmi";
 import { HiChevronDown } from "react-icons/hi";
 import dynamic from "next/dynamic";
+import { useRouter } from "next/router";
 
 const UserMenu = () => {
   const { address } = useAccount();
-
+  const router = useRouter();
   const currentUser = useRecoilValue(currentUserState);
   const { disconnect } = useDisconnect();
   const handleDisconnect = () => {
     disconnect();
     window.location.reload();
+    router.reload()
   };
 
   return (
@@ -37,7 +39,7 @@ const UserMenu = () => {
               <Menu.Item>
                 <Link href={`/${currentUser?.profile?.username}`}>
                   <p className="px-4 py-1 whitespace-nowrap font-display hover:bg-[#cee4fe] rounded-md text-gray-500 hover:text-gray-700">
-                    My Channel
+                    My Page
                   </p>
                 </Link>
               </Menu.Item>

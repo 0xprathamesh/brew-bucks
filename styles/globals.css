@@ -6,6 +6,12 @@
 .dark-blue {
   color: #0072f5;
 }
+.bg-image {
+  background: url('https://bafybeifhg4v6decztmek4nb2mmhhhjxh45umgn2feimvsurozmqnkbb6wy.ipfs.w3s.link/LinkedIn%20cover%20-%201.png');
+  background-size: cover;
+  width: fit-content;
+  
+}
 .sidebar-active {
   background: #cee4fe;
 }

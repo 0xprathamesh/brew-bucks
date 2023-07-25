@@ -45,7 +45,7 @@ const getContract = () => {
   };
 
   const getProfileByUsername = async (
-    username: string | string[]
+    username: string | string[] | undefined
   ): Promise<Profile> => {
     try {
       const res = await contract.getProfileByUsername(username);
@@ -59,6 +59,8 @@ const getContract = () => {
         balance: res.balance,
         createdAt: res.createdAt,
         walletAddress: res.walletAddress,
+        totalAmountReceived: res.totalAmountReceived,
+        totalAmountWithdrawn: res.totalAmountWithdrawn,
       };
     } catch (err) {
       throw err;
@@ -78,6 +80,8 @@ const getContract = () => {
         balance: res.balance,
         createdAt: res.createdAt,
         walletAddress: res.walletAddress,
+        totalAmountReceived: res.totalAmountReceived,
+        totalAmountWithdrawn: res.totalAmountWithdrawn,
       };
     } catch (err) {
       console.error(err);
@@ -85,7 +89,7 @@ const getContract = () => {
     }
   };
 
-  const withdraw = async (userAddress:any) => {
+  const withdraw = async (userAddress: any) => {
     try {
       const tx = await contract.withdraw(userAddress);
       await tx.wait();
@@ -93,7 +97,29 @@ const getContract = () => {
       console.error(err);
     }
   };
+  const buyCoffee = async (
+    address: string | undefined,
+    name: string,
+    message: string,
+    amount: number
+  ) => {
+    try {
+      const tx = await contract.buyCoffee(address, name, message, {
+        value: ethers.utils.parseEther(amount.toString()),
+      });
+      await tx.wait();
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-  return { addProfile, getProfileByAddress, getProfileByUsername,withdraw };
+  return {
+    addProfile,
+    getProfileByAddress,
+    getProfileByUsername,
+    withdraw,
+    contract,
+    buyCoffee,
+  };
 };
 export default getContract;

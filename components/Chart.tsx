@@ -67,7 +67,7 @@ const Chart = (props: Props) => {
           },
           title: {
             display: true,
-            text: "Daily Revenue",
+            text: "Donations",
           },
         },
         maintainAspectRatio: false,
@@ -77,7 +77,7 @@ const Chart = (props: Props) => {
   }, [getTx?.data]);
 
   return (
-    <div className="w-auto  relative lg:h-[70vh] h-40 m-auto rounded-lg bg-white">
+    <div className="w-full  relative lg:h-[70vh] h-[10px] m-auto rounded-lg bg-white">
       <Bar data={chartData} options={chartOptions} />
     </div>
   );

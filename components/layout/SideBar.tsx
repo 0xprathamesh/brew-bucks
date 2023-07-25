@@ -9,20 +9,18 @@ import React, {
   useEffect,
 } from "react";
 import { useRecoilState } from "recoil";
-import { HiUser } from "react-icons/hi";
+
 import {
   BiSolidDashboard,
   BiHeart,
   BiSolidGift,
   BiSolidWalletAlt,
   BiSolidBolt,
-  BiAt,
   BiTransfer,
   BiCodeBlock,
   BiLinkExternal,
 } from "react-icons/bi";
 import { MdOutlineSpaceDashboard } from "react-icons/md";
-import Image from "next/image";
 import { useAccount, useWalletClient } from "wagmi";
 import getContract from "@/hooks/getContract";
 
@@ -61,11 +59,7 @@ const SideBar = forwardRef<HTMLDivElement, SideBarProps>(
         href: "/payouts",
         icon: BiSolidWalletAlt,
       },
-      {
-        name: "Account",
-        href: "/your-account",
-        icon: BiAt,
-      },
+
     ];
     const settingItem = [
       {

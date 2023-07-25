@@ -48,7 +48,7 @@ const Donations = ({ profileData }: Props) => {
   const getTotalAmountRecieved = useContractRead({
     address: contractAddress,
     abi: contractAbi,
-    functionName: "getTotalAmountReceived",
+    functionName: "getTotalAmountReceivedFromSupporters",
     args: [address],
     enabled: !!address,
     watch: true,
@@ -70,6 +70,15 @@ const Donations = ({ profileData }: Props) => {
     enabled: !!address,
     watch: true,
   });
+  const withdrawnAmount = useContractRead({
+    address: contractAddress,
+    abi: contractAbi,
+    functionName: "getTotalAmountWithdrawn",
+    args: [address],
+    enabled: !!address,
+    watch: true,
+  });
+  console.log(withdrawnAmount?.data);
 
   const getTx = useContractRead({
     address: contractAddress,
@@ -85,6 +94,14 @@ const Donations = ({ profileData }: Props) => {
   const getFiveTx =
     getTxn !== null && getTxn !== undefined ? getTxn.slice(-5).reverse() : [];
   console.log(getFiveTx);
+  if (getTotalAmountRecieved?.data !== undefined) {
+    const totalAmountRecieved = ethers.utils.formatEther(
+      ethers.BigNumber.from(getTotalAmountRecieved.data).toString()
+    );
+    console.log(totalAmountRecieved);
+  } else {
+    console.error("Error: Data is undefined or empty.");
+  }
 
   return (
     <Layout>
@@ -181,9 +198,7 @@ const Donations = ({ profileData }: Props) => {
                   {getNumberofSenders?.data !== undefined ? (
                     <p className="flex items-end">
                       {ethers.utils.formatEther(
-                        ethers.BigNumber.from(
-                          getTotalAmountRecieved.data
-                        ).toString()
+                        ethers.BigNumber.from(withdrawnAmount.data).toString()
                       )}
                       <span className="text-sm">MATIC</span>
                     </p>
@@ -199,7 +214,7 @@ const Donations = ({ profileData }: Props) => {
             </div>
           </div>
           <p className="text-gray-400 text-center mb-5">Recent Donations</p>
-          <div className="grid col-1 bg-[#f1f1f1] h-96 shadow-sm p-4">
+          <div className="w-full m-auto p-2  border rounded-lg bg-[#f1f1f1] overflow-y-auto">
             <div className="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 items-center justify-between cursor-pointer">
               <span className="pl-3">From</span>
               <span className="sm:text-left text-right">Amount</span>
@@ -228,10 +243,10 @@ const Donations = ({ profileData }: Props) => {
                       </p>
                     </div>
                     <p>
-                    <Copyable
-                      text={parseAddress(tx.from)}
-                      copyText={tx.from}
-                    />
+                      <Copyable
+                        text={parseAddress(tx.from)}
+                        copyText={tx.from}
+                      />
                     </p>
                     <p>
                       {new Date(Number(tx.timestamp) * 1000).toLocaleString()}{" "}
@@ -240,9 +255,11 @@ const Donations = ({ profileData }: Props) => {
                 ))}
             </ul>
           </div>{" "}
-          <Link href="/transactions">
-            <button className="bg-[#0072f5] m-5 ">See All Transactions</button>
-          </Link>
+          {getTx?.data !== null && getFiveTx.length > 0 ? (
+        <Link href="/transactions">
+          <button className="bg-[#0072f5] m-5 mx-auto">See All Transactions</button>
+        </Link>
+          ) : (<p className="text-sm text-center mt-10">No Transactions to Show</p>)}
         </div>
       )}
       {loading ? <Loading /> : null}
