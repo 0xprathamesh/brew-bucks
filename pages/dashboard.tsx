@@ -16,7 +16,7 @@ import { LuAlertTriangle, LuAlertCircle } from "react-icons/lu";
 import { ethers } from "ethers";
 import { contractAbi, contractAddress } from "@/constants";
 import Chart from "@/components/Chart";
-import confetti from "canvas-confetti";
+
 type Props = {
   profileData: Profile;
 };
@@ -34,18 +34,6 @@ const Dashboard = ({ profileData }: Props) => {
 
   const router = useRouter();
 
-  const handleConfetti = () => {
-    confetti({
-      particleCount: 100,
-      startVelocity: 30,
-      spread: 360,
-      origin: {
-        x: Math.random(),
-        // since they fall down, start a bit higher than random
-        y: Math.random() - 0.2,
-      },
-    });
-  };
 
   return (
     <Layout>
@@ -87,7 +75,7 @@ const Dashboard = ({ profileData }: Props) => {
             </div>
             <div
               className="bg-[#222222] px-8 text-white py-2 text-md rounded-full flex items-center cursor-pointer"
-              onClick={handleConfetti}
+             
             >
               <HiArrowUpTray className="h-5 w-5 mr-2" />
               Share Page
