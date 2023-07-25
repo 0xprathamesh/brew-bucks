@@ -156,9 +156,9 @@ const Donations = ({ profileData }: Props) => {
                   {getNumberofSenders?.data !== undefined ? (
                     <p className="flex items-end">
                       {ethers.utils.formatEther(
-                        ethers.BigNumber.from(
+                        
                           getTotalAmountRecieved.data
-                        ).toString()
+                        .toString()
                       )}
                       <span className="text-sm">MATIC</span>
                     </p>

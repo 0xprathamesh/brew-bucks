@@ -5,12 +5,10 @@ import { useRecoilValue } from "recoil";
 import { Profile } from "@/recoil/state";
 import Link from "next/link";
 import { ethers } from "ethers";
-import { useAccount, useContractWrite } from "wagmi";
+import { useAccount, useContractRead } from "wagmi";
 import { contractAddress, contractAbi } from "@/constants";
 import { BsFillPersonFill } from "react-icons/bs";
 import { LuAlertTriangle, LuAlertCircle } from "react-icons/lu";
-import Loading from "@/components/elements/Loading";
-import Copyable from "@/components/Copyable";
 import { BiMoneyWithdraw } from "react-icons/bi";
 import getContract from "@/hooks/getContract";
 import { toast } from "react-hot-toast";
@@ -20,22 +18,31 @@ type Props = {
 };
 
 type Transaction = {
-  from: string;
-  name: string;
-  message: string;
   amount: number;
   timestamp: number;
 };
 
-const Payouts = (props:Props) => {
+const Payouts = ({ profileData }: Props) => {
   const [loading, setLoading] = useState(true);
   const currentUser = useRecoilValue(currentUserState);
   const { address, isDisconnected } = useAccount();
-  const {withdraw} = getContract();
+  const { withdraw } = getContract();
 
   useEffect(() => {
     setLoading(false);
   }, []);
+
+  const getTx = useContractRead({
+    address: contractAddress,
+    abi: contractAbi,
+    functionName: "getAllWithdrawTxns",
+    args: [address],
+    enabled: !!address,
+    watch: true,
+  });
+
+  const getTxn: any = getTx?.data;
+  console.log(getTxn);
 
   const handleWithdraw = async () => {
     if (!isDisconnected) {
@@ -88,13 +95,49 @@ const Payouts = (props:Props) => {
                     <span className="text-sm">MATIC</span>
                   </h1>
                 </div>
-                <div className="bg-[#222222] px-8 text-white py-2 text-md rounded-full flex items-center cursor-pointer" onClick={handleWithdraw}>
+                <div
+                  className="bg-[#222222] px-8 text-white py-2 text-md rounded-full flex items-center cursor-pointer"
+                  onClick={handleWithdraw}
+                >
                   <BiMoneyWithdraw className="h-5 w-5 mr-2" />
                   Withdraw
                 </div>
               </div>
             </div>
           </div>
+
+          <div className="max-w-2xl m-auto p-2  border rounded-lg bg-[#f1f1f1] overflow-y-auto">
+            <div className="grid md:grid-cols-2 sm:grid-cols-2 grid-cols-2 items-center cursor-pointer">
+              <span className="sm:text-left text-right">Amount</span>
+
+              <span className="hidden sm:grid">Time</span>
+            </div>
+            <ul>
+              {getTx?.data !== null &&
+                getTxn.map((tx: Transaction, index: number) => (
+                  <li
+                    key={index}
+                    className="bg-gray-50 hover:bg-gray-100 rounded-lg my-3 p-2 grid md:grid-cols-2 sm:grid-cols-2 grid-cols-2 items-center justify-between cursor-pointer"
+                  >
+                    <div className="flex items-center">
+                      <p className="text-gray-800 font-bold ">
+                        {ethers.utils.formatEther(tx.amount)}
+                      </p>
+                      <p className="text-gray-800 text-[8px] pt-2 ml-2">
+                        MATIC
+                      </p>
+                    </div>
+
+                    <p>
+                      {new Date(Number(tx.timestamp) * 1000).toLocaleString()}{" "}
+                    </p>
+                  </li>
+                ))}
+            </ul>
+          </div>
+          {getTxn.length < 0 ? (
+            <p className="text-sm text-center mt-10">No Transactions to Show</p>
+          ) : null}
         </div>
       )}
     </Layout>

@@ -26,12 +26,11 @@ const ProfilePage = (props: Props) => {
   const [hasProfile, setHasProfile] = useState<boolean>(false);
   const [name, setName] = useState<string>("");
   const [message, setMessage] = useState<string>("");
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState<any>(0);
   const contract = getContract();
   const { address, isDisconnected } = useAccount();
   const { buyCoffee } = getContract();
 
-  
   const checkIfUserHasProfile = async (): Promise<void> => {
     setLoading(true);
     try {
@@ -61,7 +60,7 @@ const ProfilePage = (props: Props) => {
   const getTxn: any = getTx?.data;
   const getFiveTx =
     getTxn !== null && getTxn !== undefined ? getTxn.slice(-5).reverse() : [];
-  console.log(getFiveTx);
+
   const getNumberofSenders = useContractRead({
     address: contractAddress,
     abi: contractAbi,
@@ -182,10 +181,11 @@ const ProfilePage = (props: Props) => {
                     <div className="flex items-center">
                       <input
                         type="number"
-                        step="any"
+                        min="0.001"
+                        step={0.1}
                         id="amount"
                         value={amount}
-                        onChange={(e) => setAmount(parseFloat(e.target.value))}
+                        onChange={(e) => setAmount(e.target.value)}
                         required
                         className="w-[9rem] rounded-md text-gray-500"
                       />
@@ -227,9 +227,7 @@ const ProfilePage = (props: Props) => {
                 <>
                   {ethers.BigNumber.from(getNumberofSenders.data).toNumber() >
                   0 ? (
-                    <p className="">
-                      Recent Supporters
-                    </p>
+                    <p className="">Recent Supporters</p>
                   ) : null}
                 </>
               ) : null}
@@ -241,13 +239,14 @@ const ProfilePage = (props: Props) => {
                     key={index}
                     className="bg-gray-100 px-4 py-2 rounded-md shadow-sm"
                   >
-                    <div className="flex items-center justify-between">
-                      <span>
-                        {tx.name} bought BrewBucks Coffee for{" "}
+                    <div className="flex items-center">
+                      <BiCoffeeTogo className="h-6 w-6 text-yellow-400" />
+                      <span className="text-gray-500">
+                        {tx.name} bought A Coffee for{" "}
                         {ethers.utils.formatEther(tx.amount)} Matic.
                       </span>
                     </div>
-                    <p className="block m-2 bg-[#ffeb79bc] w-40 text-center p-2 rounded-md">
+                    <p className="block m-2 bg-[#ffeb79bc] w-40 text-center p-2 rounded-md text-[#222222]">
                       {tx.message}
                     </p>
                   </li>

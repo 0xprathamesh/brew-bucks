@@ -97,21 +97,49 @@ const getContract = () => {
       console.error(err);
     }
   };
-  const buyCoffee = async (
-    address: string | undefined,
-    name: string,
-    message: string,
-    amount: number
-  ) => {
+  // const buyCoffee = async (
+  //   address: string | undefined,
+  //   name: string,
+  //   message: string,
+  //   amount: ethers.BigNumber // Change the type of the amount parameter to BigNumber
+  // ) => {
+  //   try {
+  //     const tx = await contract.buyCoffee(address, name, message, {
+  //       value: amount, // Use the BigNumber directly, no need to parse it again.
+  //     });
+  //     await tx.wait();
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
+  // const buyCoffee = async (
+  //   address: string | undefined,
+  //   name: string,
+  //   message: string,
+  //   amount: number
+  // ) => {
+  //   try {
+  //     const tx = await contract.buyCoffee(address, name, message, {
+  //       value: ethers.utils.parseEther(amount.toString()),
+  //     });
+  //     await tx.wait();
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
+  const buyCoffee = async (address: string | undefined, name: string, message: string, amount: number) => {
     try {
-      const tx = await contract.buyCoffee(address, name, message, {
-        value: ethers.utils.parseEther(amount.toString()),
-      });
+      const _amount = ethers.utils.parseEther(amount.toString());
+      const tx = await contract.buyCoffee(address, name, message, _amount, { value: _amount, });
       await tx.wait();
     } catch (err) {
       console.error(err);
+      
+      
     }
-  };
+    
+  }
+
 
   return {
     addProfile,

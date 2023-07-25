@@ -1,6 +1,6 @@
-const contractAddress = "0x281e32aDcB2B620A00e70D902103865187C1102D";
+const contractAddress = "0xAb33DD149B80c012541cA8E4DCf59F94A3643Cc8";
 //0x8bBB47a6450b8028bcC28CF83A06617EA6c01C2B
-const contractAbi = [
+const contractAbi =[
   {
     "type": "event",
     "name": "NewTransaction",
@@ -325,6 +325,37 @@ const contractAbi = [
           }
         ],
         "internalType": "struct BrewBucks.Profile[]"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getAllWithdrawTxns",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "_userAddress",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [
+      {
+        "type": "tuple[]",
+        "name": "",
+        "components": [
+          {
+            "type": "uint256",
+            "name": "amount",
+            "internalType": "uint256"
+          },
+          {
+            "type": "uint256",
+            "name": "timestamp",
+            "internalType": "uint256"
+          }
+        ],
+        "internalType": "struct BrewBucks.WithdrawTxn[]"
       }
     ],
     "stateMutability": "view"
@@ -804,5 +835,5 @@ const contractAbi = [
     ],
     "stateMutability": "view"
   }
-];
+]
 export { contractAddress, contractAbi };
