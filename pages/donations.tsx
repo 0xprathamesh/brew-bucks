@@ -158,11 +158,7 @@ const formattedAmount: string = ethers.utils.formatEther(totalAmountReceived as 
                 <p className="text-4xl font-bold">
                   {getNumberofSenders?.data !== undefined ? (
                     <p className="flex items-end">
-                      {/* {ethers.utils.formatEther(
-                        
-                          getTotalAmountRecieved.data
-                        .toString()
-                      )} */} {formattedAmount}
+ {formattedAmount}
                       <span className="text-sm">MATIC</span>
                     </p>
                   ) : null}

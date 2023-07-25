@@ -39,3 +39,8 @@
     @apply pl-8;
   }
 }
+                      /* {/* {ethers.utils.formatEther(
+                        
+                          getTotalAmountRecieved.data
+                        .toString()
+                      )} */
