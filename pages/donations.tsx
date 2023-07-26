@@ -102,8 +102,8 @@ const Donations = ({ profileData }: Props) => {
   } else {
     console.error("Error: Data is undefined or empty.");
   }
-  const totalAmountReceived: unknown = getTotalAmountRecieved.data;
-const formattedAmount: string = ethers.utils.formatEther(totalAmountReceived as ethers.BigNumberish);
+//   const totalAmountReceived: unknown = getTotalAmountRecieved.data;
+// const formattedAmount: string = ethers.utils.parseEther(totalAmountReceived as ethers.BigNumberish);
 
 
   return (
@@ -158,7 +158,11 @@ const formattedAmount: string = ethers.utils.formatEther(totalAmountReceived as 
                 <p className="text-4xl font-bold">
                   {getNumberofSenders?.data !== undefined ? (
                     <p className="flex items-end">
- {formattedAmount}
+                      {ethers.utils.formatEther(
+                        ethers.BigNumber.from(
+                          getTotalAmountRecieved.data
+                        ).toString()
+                      )}
                       <span className="text-sm">MATIC</span>
                     </p>
                   ) : null}

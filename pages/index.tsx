@@ -22,12 +22,12 @@ const Home = () => {
           </div>
           <div className="flex items-center">
             {isConnected ? (
-              <p
+              <div
                 onClick={() => router.push("/dashboard")} // Redirect to the dashboard
                 className="cursor-pointer mr-4 text-md text-[#0072f5] hover:text-[#0072f5cd]"
               >
                 Dashboard
-              </p>
+              </div>
             ) : null}
             <ConnectKitButton />
           </div>
@@ -39,9 +39,9 @@ const Home = () => {
             <h1 className="lg:text-[70px] font-secondary bg-gradient-to-r from-[#ffe75c] via-[#FF9D0A] to-[#855916] bg-clip-text text-5xl text-transparent font-bold">
               Buy Coffee onChain{" "}
             </h1>
-            <p className="mx-auto mt-4 font-primary  sm:text-xl sm:leading-relaxed">
+            <div className="mx-auto mt-4 font-primary  sm:text-xl sm:leading-relaxed">
             BrewBucks: A web3 platform enabling coffee purchases on-chain using Matic. Unlock the seamless coffee buying experience with the power of blockchain technology. Sip, savor, and support Creators.
-            </p>
+            </div>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
               <Link
                 href={`/signup`}
