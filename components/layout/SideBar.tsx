@@ -64,12 +64,12 @@ const SideBar = forwardRef<HTMLDivElement, SideBarProps>(
     const settingItem = [
       {
         name: "Buttons",
-        href: "/buttons",
+        href: "/",
         icon: BiCodeBlock,
       },
       {
         name: "Integrations",
-        href: "/integrations",
+        href: "/",
         icon: BiSolidBolt,
       },
 
