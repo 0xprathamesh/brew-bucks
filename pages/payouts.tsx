@@ -43,6 +43,9 @@ const Payouts = ({ profileData }: Props) => {
 
   const getTxn: any = getTx?.data;
   console.log(getTxn);
+  const transactions = Array.isArray(getTxn) ? getTxn : [];
+   console.log(transactions);
+   
 
   const handleWithdraw = async () => {
     if (!isDisconnected) {
@@ -113,8 +116,8 @@ const Payouts = ({ profileData }: Props) => {
               <span className="hidden sm:grid">Time</span>
             </div>
             <ul>
-              {getTx?.data !== null &&
-                getTxn.map((tx: Transaction, index: number) => (
+              {transactions.length > 0&&
+                transactions.map((tx: Transaction, index: number) => (
                   <li
                     key={index}
                     className="bg-gray-50 hover:bg-gray-100 rounded-lg my-3 p-2 grid md:grid-cols-2 sm:grid-cols-2 grid-cols-2 items-center justify-between cursor-pointer"
